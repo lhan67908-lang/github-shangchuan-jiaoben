@@ -210,12 +210,17 @@ echo.
 echo 1）普通拉取：
 echo git pull
 echo.
-echo 2）拉取指定分支：
+echo 2）拉取 origin main：
 echo git pull origin main
 echo.
-set /p mode=选择方式：1 普通pull，2 拉取origin main：
+echo 3）第一次本地仓库和 GitHub 仓库历史不一致时：
+echo git pull origin main --allow-unrelated-histories
+echo.
+set /p mode=选择方式：1 普通pull，2 拉取origin main，3 允许无关历史合并：
+
 if "%mode%"=="1" git pull
 if "%mode%"=="2" git pull origin main
+if "%mode%"=="3" git pull origin main --allow-unrelated-histories
 
 pause
 goto menu
