@@ -411,15 +411,15 @@ if "%mode%"=="3" goto remote_seturl
 
 pause
 goto menu
-:remote_add
-    set /p repo=请粘贴 GitHub 仓库地址：
-if not "%repo%"=="" git remote add origin "%repo%"
-pause
-goto menu
-
 :remote_seturl
     set /p repo=请粘贴新的 GitHub 仓库地址：
 if not "%repo%"=="" git remote set-url origin "%repo%"
+pause
+goto menu
+
+:remote_add
+    set /p repo=请粘贴 GitHub 仓库地址：
+if not "%repo%"=="" git remote add origin "%repo%"
 pause
 goto menu
 
@@ -461,7 +461,7 @@ git commit -m "%msg%"
 
 echo.
 echo 第3步：上传到 GitHub git push
-git push
+git push -u origin HEAD
 
 pause
 goto menu
@@ -507,8 +507,10 @@ goto menu
 :config_set
 set /p username=请输入你的 Git 用户名（例如：张三）：
 if not "%username%"=="" git config --global user.name "%username%"
+    git config --global user.name "%username%"
 set /p email=请输入你的邮箱（例如：zhangsan@qq.com）：
 if not "%email%"=="" git config --global user.email "%email%"
+    git config --global user.email "%email%"
 pause
 goto menu
 
