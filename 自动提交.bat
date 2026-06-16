@@ -181,7 +181,8 @@ echo.
 echo no changes added to commit
 echo → 没有需要提交的内容（还没 add）
 echo.
-echo ═══════════════════════════════════════════════════:git_add
+echo ═══════════════════════════════════════════════════
+:git_add
 cls
 echo ===== 4. 添加文件到暂存区 git add =====
 echo.
@@ -293,7 +294,7 @@ pause
 goto menu
 :push_branch
     set /p branch=请输入分支名：
-if not "%branch%"=="" git push origin "%branch%"
+if not "%branch%"=="" git push -u origin "%branch%"
 pause
 goto menu
 
