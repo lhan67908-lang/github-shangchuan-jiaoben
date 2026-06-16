@@ -287,16 +287,13 @@ echo.
 set /p mode=你属于哪种情况？输入 1 / 2 / 3：
 if "%mode%"=="1" git push
 if "%mode%"=="2" git push -u origin main
-if "%mode%"=="3" goto push_branch
-
-pause
-goto menu
-:push_branch
+if "%mode%"=="3" (
     set /p branch=请输入分支名：
-if not "%branch%"=="" git push origin "%branch%"
+    git push origin "%branch%"
+)
+
 pause
 goto menu
-
 
 
 :git_pull
@@ -405,23 +402,17 @@ echo      git remote set-url origin 新仓库地址
 echo.
 set /p mode=你想做哪个？输入 1（查看）/ 2（绑定）/ 3（换地址）：
 if "%mode%"=="1" git remote -v
-if "%mode%"=="2" goto remote_add
-if "%mode%"=="3" goto remote_seturl
-
-pause
-goto menu
-:remote_add
+if "%mode%"=="2" (
     set /p repo=请粘贴 GitHub 仓库地址：
-if not "%repo%"=="" git remote add origin "%repo%"
-pause
-goto menu
-
-:remote_seturl
+    git remote add origin "%repo%"
+)
+if "%mode%"=="3" (
     set /p repo=请粘贴新的 GitHub 仓库地址：
-if not "%repo%"=="" git remote set-url origin "%repo%"
+    git remote set-url origin "%repo%"
+)
+
 pause
 goto menu
-
 
 
 :git_auto_push
@@ -499,18 +490,15 @@ echo       git config --global user.email "你的邮箱"
 echo.
 set /p mode=你想做哪个？输入 1（查看）/ 2（设置）：
 if "%mode%"=="1" git config --global --list
-if "%mode%"=="2" goto config_set
+if "%mode%"=="2" (
+    set /p username=请输入你的 Git 用户名（例如：张三）：
+    set /p email=请输入你的邮箱（例如：zhangsan@qq.com）：
+    git config --global user.name "%username%"
+    git config --global user.email "%email%"
+)
 
 pause
 goto menu
-:config_set
-set /p username=请输入你的 Git 用户名（例如：张三）：
-if not "%username%"=="" git config --global user.name "%username%"
-set /p email=请输入你的邮箱（例如：zhangsan@qq.com）：
-if not "%email%"=="" git config --global user.email "%email%"
-pause
-goto menu
-
 
 
 :git_branch
@@ -754,7 +742,7 @@ goto menu
 :undo_revert
 echo 下面会打开一个编辑器让你确认撤销信息，直接关闭即可。
 set /p commitid=请输入要撤销的提交ID（在 git log 可看到，如 a1b2c3d）：
-if not "%commitid%"=="" git revert --no-edit "%commitid%"
+if not "%commitid%"=="" git revert "%commitid%"
 pause
 goto menu
 
