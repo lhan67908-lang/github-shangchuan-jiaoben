@@ -286,7 +286,7 @@ echo   3）我想上传到其他分支（不是 main 分支）
 echo      用 git push origin 分支名
 echo.
 set /p mode=你属于哪种情况？输入 1 / 2 / 3：
-if "%mode%"=="1" git push
+if "%mode%"=="1" git push -u origin HEAD
 if "%mode%"=="2" git push -u origin main
 if "%mode%"=="3" goto push_branch
 
